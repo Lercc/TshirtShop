@@ -3,13 +3,13 @@
     <head>
         <meta charset="utf8"/>
         <title> Tienda de camisetas </title>
-        <link rel="stylesheet"  type="text/css" href="<?=BASE_URL?>assets/css/style.css">
+        <link rel="stylesheet"  type="text/css" href="<?=BASE_URL?>/assets/css/style.css">
     </head>
     <body>
         <!-- HEADER -->
         <header>
             <div id="imagotipo">
-                <img class="isotipo" src="<?=BASE_URL?>assets/img/camiseta.png" alt="isotipo">
+                <img class="isotipo" src="<?=BASE_URL?>/assets/img/camiseta.png" alt="isotipo">
                 <!-- <img id="logotipo" src="" alt=""> -->
                 <p class="logotipo"><span>TSHIRTS</span><span>SHOP</span></p>
             </div>
@@ -22,7 +22,7 @@
                     <div class="account-user"  onclick="accountUserToggle()"></div>
                     <div class="account-user-containt toggleOFF">
                         <div id="login" class="account-user-element">
-                            <img src="<?=BASE_URL?>assets/icons/lock.svg" alt="">
+                            <img src="<?=BASE_URL?>/assets/icons/lock.svg" alt="">
                             <form action="#" method="POST">
                                 <label for="user">USUARIO</label>
                                 <input type="email" name="user">

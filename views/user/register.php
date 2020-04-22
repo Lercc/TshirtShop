@@ -1,7 +1,7 @@
 <!-- MAIN-CONTAINER -->
 <div class="form">
     <h1>REGISTRARSE</h1>
-    <form action="index.php?controller=usuario&action=createUser" method="POST">
+    <form action="<?=BASE_URL?>/usuario/createUser" method="POST">
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre">
         
