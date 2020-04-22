@@ -2,14 +2,20 @@
     ////////////////////////////////////////////////////
     /////////////// CONTROLLADOR FRONTAL /////////////// 
     ////////////////////////////////////////////////////
+    session_start();
     require_once './autoload.php';
-
+    require_once './config/database.php';
     require_once './config/parameters.php';
+    require_once './helpers/utilidades.php';
 
+    //HEADER
     require_once './views/layouts/header.php';
+    //MENU
     require_once './views/layouts/menu-home.php';
+    //ASIDE
     require_once './views/layouts/aside-home.php';
     
+    //MAIN-CONTINER
     function showError($pValor){
         $error = new errorController();
         $error->index($pValor);
@@ -57,5 +63,6 @@
         showError('parámeto HTTP no válido');
     }
 
+    //FOOTER
     require_once './views/layouts/footer.php';
 ?>

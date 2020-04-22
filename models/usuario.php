@@ -10,13 +10,19 @@
         private $password;
         private $rol;
         private $imagen;
+        private $db;
         
+        //constructor
+        public function __construct() {
+            $this->db = Database::conectar();
+        }
+
         //metodos get 
         public function getId(){
             return $this->id;
         }
-        public function getNombres(){
-            return $this->nombres;
+        public function getNombre(){
+            return $this->nombre;
         }
         public function getApellidos(){
             return $this->apellidos;
@@ -38,26 +44,52 @@
         public function setId($pId){
             $this->id = $pId;
         }
-        public function setNombres($pNombres){
-            return $this->nombres = $pNombres;
+        public function setNombre($pNombre){
+            $this->nombre = $pNombre;
         }
         public function setApellidos($pApellidos){
-            return $this->apellidos = $pApellidos;
+            $this->apellidos = $pApellidos;
         }
         public function setEmail($pEmail){
-            return $this->email = $pEmail;
+            $this->email = $pEmail;
         }
         public function setPassword($pPassword){
-            return $this->password = $pPassword;
+            $this->password = $pPassword;
         }
         public function setRol($pRol){
-            return $this->rol = $pRol;
+            $this->rol = $pRol;
         }
         public function setImagen($pImagen){
-            return $this->imagen = $pImagen;
+            $this->imagen = $pImagen;
         }
 
-        
+        //ESCAPAR - LIMPIAR - CARACTERES 
+        //real_escape_string  se usa para crear una cadena SQL legal
+        //escapa los caracteres que podrian vulnerar la consulta sql
+
+        public function escapeString($pString) {
+            $stringCleaned = $this->db->real_escape_string($pString);
+            return $stringCleaned;
+        }
+
+        //LIMPIAR Y ENCRIPTAR PASSWORD 
+        public function encryptPasword($pPassword) {
+            $passEncrypted = password_hash($this->db->real_escape_string($pPassword), PASSWORD_BCRYPT, ['cost'=>4] );
+            return $passEncrypted;
+        }
+
+        public function create(){
+            //consulta sql
+            $sql = "INSERT INTO usuarios VALUES (null ,'{$this->getNombre()}','{$this->getApellidos()}','{$this->getEmail()}','{$this->getPassword()}','user',null)";
+            //query
+            $query = $this->db->query($sql);
+            //validacion
+            $queryResult = false;
+            if($query) {
+                $queryResult = true;
+            }
+            return $queryResult;
+        }
 
     }
 
