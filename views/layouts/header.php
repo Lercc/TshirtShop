@@ -38,15 +38,22 @@
                             <p><?=$_SESSION['identity']->nombre?>  <?=$_SESSION['identity']->apellidos?></p>
                             <?php endif; ?>
                             <br><hr><hr>
+
+                            <?php if (!isset($_SESSION['identity'])) : ?>
+                            <a href="<?=BASE_URL?>/usuario/register">CREAR CUENTA</a>   
+                            <?php endif;?>
+
                             <?php if (isset($_SESSION['admin'])) : ?>
-                            <a href="<?=BASE_URL?>">GESTIONAR CATEGORIAS</a>
+                            <a href="<?=BASE_URL?>/categoria/listar">GESTIONAR CATEGORIAS</a>
                             <a href="<?=BASE_URL?>">GESTIONAR PRODUCTOS</a>
                             <a href="<?=BASE_URL?>">GESTIONAR PEDIDOS</a>
                             <?php endif; ?>
+
                             <?php if (isset($_SESSION['identity'])) : ?>
                                 <a href="<?=BASE_URL?>">MIS PEDIDOS</a>
                                 <a href="<?=BASE_URL?>/usuario/logout">LOGOUT</a>
                             <?php endif; ?>
+                            
                             </div>
                             <div class="account-user-data">
                                 

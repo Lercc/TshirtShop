@@ -1,11 +1,12 @@
   <!-- MENU -->
+  <?php $listCat = Utilidades::mostrarCategorias() ?>
   <nav id="menu">
             <ul>
                 <li><a href="<?=BASE_URL?>" class="category active" onclick="selectCat(0)">HOME</a></li>
-                <li><a class="category" onclick="selectCat(1)">CATEGORY 1</a></li>
-                <li><a class="category" onclick="selectCat(2)">CATEGORY 2</a></li>
-                <li><a class="category" onclick="selectCat(3)">CATEGORY 3</a></li>
-                <li><a class="category" onclick="selectCat(4)">CATEGORY 4</a></li>
-                <li><a class="category" onclick="selectCat(5)">CATEGORY 5</a></li>
+                <?php while ($cat = $listCat->fetch_object()  ) :?>
+                    <?php $i = 1?>
+                    <li><a class="category" onclick="selectCat($i)"><?=$cat->nombre?></a></li>
+                    <?php $i++?>
+                <?php endwhile; ?>
             </ul>
         </nav>

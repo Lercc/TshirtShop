@@ -24,6 +24,19 @@
             return $string;
         }
 
+        public static function isAdmin() {
+            if(!isset($_SESSION['admin'])) {
+                header('Location:'.BASE_URL);
+            }
+            return true;
+        }
+
+        public static function mostrarCategorias() {
+            require_once './models/categoria.php';
+            $categoria = new Categoria();
+            return $categorias = $categoria->listCategories();
+        }
+
     }
 
 ?>
