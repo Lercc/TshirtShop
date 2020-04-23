@@ -16,6 +16,13 @@
             }
             return $string;
         }
+        public static function mostrarErroresLogin($pError) {
+            $string = '';
+            if(isset($_SESSION['erroresLogin']) && isset($_SESSION['erroresLogin'][$pError])) {
+                $string = $_SESSION['erroresLogin'][$pError];
+            }
+            return $string;
+        }
 
     }
 

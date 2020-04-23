@@ -78,6 +78,7 @@
             return $passEncrypted;
         }
 
+        //CREAR NUEVO USUARIO EN BD
         public function create(){
             //consulta sql
             $sql = "INSERT INTO usuarios VALUES (null ,'{$this->getNombre()}','{$this->getApellidos()}','{$this->getEmail()}','{$this->getPassword()}','user',null)";
@@ -90,6 +91,27 @@
             }
             return $queryResult;
         }
+        
+        //LOGIN USUARIO BD
+        public function login(){
+            // CONSULTA SQL
+            $sql = "SELECT * FROM usuarios WHERE  email = '{$this->getEmail()}'";
+            //QUERY A LA DB
+            $query = $this->db->query($sql);
+
+            //VALIDADCIO DEL RESULTADO
+            $queryResult = false;
+            if ($query && $query->num_rows == 1) {
+                //recoger los datos de la query en fecth tipo objeto , para verificar
+                $userToVerify = $query->fetch_object();
+                //verificar que las contraseñas sean iguales
+                if( password_verify($this->password,$userToVerify->password) ) {
+                    $queryResult = $userToVerify;
+                }
+            }
+            return $queryResult;
+        }
+        
 
     }
 

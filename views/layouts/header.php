@@ -20,25 +20,39 @@
                 
                 <div class="account-element">
                     <div class="account-user"  onclick="accountUserToggle()"></div>
-                    <div class="account-user-containt toggleOFF">
+                    <div class="account-user-containt <?=!isset($_SESSION['erroresLogin']) ? 'toggleOFF': ''?>">
                         <div id="login" class="account-user-element">
                             <img src="<?=BASE_URL?>/assets/icons/lock.svg" alt="">
-                            <form action="#" method="POST">
-                                <label for="user">USUARIO</label>
-                                <input type="email" name="user">
+                            <?php if (!isset($_SESSION['identity'])) : ?>
+                            <form action="<?=BASE_URL?>/usuario/loginUser" method="POST">
+                                <label for="email">USUARIO</label>
+                                <span class="alerta-error"><?=Utilidades::mostrarErroresLogin('email')?></span>
+                                <input type="email" name="email">
                                 <label for="password">CONTRASEÑA</label>
+                                <span class="alerta-error"><?=Utilidades::mostrarErroresLogin('password')?></span>
                                 <input type="password" name="password">
+                                <span class="alerta-error"><?=Utilidades::mostrarErroresLogin('login')?></span>
                                 <input type="submit" value="JOIN">
                             </form>
+                            <?php elseif (isset($_SESSION['identity'])) : ?>
+                            <p><?=$_SESSION['identity']->nombre?>  <?=$_SESSION['identity']->apellidos?></p>
+                            <?php endif; ?>
                             <br><hr><hr>
-                            <a href="">MIS PEDIDOS</a>
-                            <a href="">GESTIONAR PEDIDOS</a>
-                            <a href="">GESTIONAR CATEGORIAS</a>
-                        </div>
-                        <div class="account-user-data">
-    
-                        </div>
+                            <?php if (isset($_SESSION['admin'])) : ?>
+                            <a href="<?=BASE_URL?>">GESTIONAR CATEGORIAS</a>
+                            <a href="<?=BASE_URL?>">GESTIONAR PRODUCTOS</a>
+                            <a href="<?=BASE_URL?>">GESTIONAR PEDIDOS</a>
+                            <?php endif; ?>
+                            <?php if (isset($_SESSION['identity'])) : ?>
+                                <a href="<?=BASE_URL?>">MIS PEDIDOS</a>
+                                <a href="<?=BASE_URL?>/usuario/logout">LOGOUT</a>
+                            <?php endif; ?>
+                            </div>
+                            <div class="account-user-data">
+                                
+                            </div>
                     </div>
+                    <?=Utilidades::deleteSession('erroresLogin')?>
                 </div>
             </div>
         </header>
