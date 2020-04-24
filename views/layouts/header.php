@@ -46,7 +46,7 @@
 
                             <?php if (isset($_SESSION['admin'])) :?>
                             <a href="<?=BASE_URL?>/categoria/listar">GESTIONAR CATEGORIAS</a>
-                            <a href="<?=BASE_URL?>">GESTIONAR PRODUCTOS</a>
+                            <a href="<?=BASE_URL?>/producto/gestion">GESTIONAR PRODUCTOS</a>
                             <a href="<?=BASE_URL?>">GESTIONAR PEDIDOS</a>
                             <?php endif;?>
 

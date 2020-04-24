@@ -19,3 +19,10 @@ function accountUserToggle(){
         $lerc[0].classList.remove('account-close')
     }
 }
+function imgTransition() {
+    $lercc = document.getElementsByClassName('imgTransition')
+    $models = Array("model-1","model-2","model-3")
+    for(i=0; i<$models.length;i++) {
+        
+    }
+}

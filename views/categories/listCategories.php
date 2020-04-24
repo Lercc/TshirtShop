@@ -1,5 +1,5 @@
 <!-- MAIN-CONTAINER -->
-    <!-- REGISTER-CONTAINER -->
+    <!-- LISTCATEGORIES-CONTAINER -->
     <div class="listCategories-container">
         <h1>Categorias</h1>
         <div class="categorias">
@@ -17,5 +17,4 @@
             <?php endif;?>
         </form>
         <?php Utilidades::deleteSession('errores');?>
-    </div>
-
+</div>
