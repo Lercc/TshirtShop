@@ -1,4 +1,4 @@
-<?php 
+<?php
     ////////////////////////////////////////////////////
     /////////////// CONTROLLADOR FRONTAL /////////////// 
     ////////////////////////////////////////////////////
@@ -14,13 +14,27 @@
     require_once './views/layouts/menu-home.php';
     //ASIDE
     require_once './views/layouts/aside-home.php';
-    
+    // if(isset($_SESSION['identity'])) {
+    //     echo 'vardum 1 :';
+    //     var_dump($_SESSION['identity']);
+    // }
+    // if(isset($_SESSION['errores'])) {
+    //     echo 'vardum 2 :';
+    //     var_dump($_SESSION['errores']);
+    // }
+    // if(isset($_SESSION['admin'])) {
+    //     echo 'vardum 3 :';
+    //     var_dump($_SESSION['admin']);
+    // }
+    // if(isset($_SESSION['erroresLogin'])) {
+    //     echo 'vardum 4 : ';
+    //     var_dump($_SESSION['erroresLogin']);
+    // }
     //MAIN-CONTINER
     function showError($pValor){
         $error = new errorController();
         $error->index($pValor);
     }
-
     if(isset($_GET['controller']) && isset($_GET['action'])) {
 
         //formar controlador 
@@ -62,7 +76,6 @@
     } else {
         showError('parámeto HTTP no válido');
     }
-
     //FOOTER
     require_once './views/layouts/footer.php';
 ?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
     //creano una clase estatica
     class Utilidades {
 
@@ -34,9 +34,9 @@
         public static function mostrarCategorias() {
             require_once './models/categoria.php';
             $categoria = new Categoria();
-            return $categorias = $categoria->listCategories();
+            $categorias = $categoria->listCategories();
+            return $categorias;
         }
 
     }
-
 ?>

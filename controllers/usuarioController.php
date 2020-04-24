@@ -135,10 +135,12 @@
         //logout
         public function logout() {
            if(isset($_SESSION['identity'])) {
-               unset($_SESSION['identity']);
+                $_SESSION['identity'] = null;
+                unset($_SESSION['identity']);
            } 
            if(isset($_SESSION['admin'])) {
-               unset($_SESSION['admin']);
+                $_SESSION['admin'] = null;
+                unset($_SESSION['admin']);
            } 
            header('Location:'.BASE_URL);
         }

@@ -1,10 +1,9 @@
-<?php 
+<?php
     require_once './models/categoria.php';
 
     class categoriaController {
 
         public function index(){
-            Utilidades::isAdmin();
             echo 'controller:categoria - action:mostrar';
         }
         
@@ -34,7 +33,7 @@
                 }
                 header('Location:'.BASE_URL.'/categoria/listar');
             } else {
-                header('Location:'.BASE_URL);
+                header('Location:'.BASE_URL); 
             }
         }
     }
