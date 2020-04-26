@@ -524,14 +524,15 @@ div.toggleOFF {
     2px 2px 4px rgba(0, 0, 0, 0.35),
     -1px -1px 12px rgba(0, 0, 0, 0.05);
  }
+ 
  .listaProductos-container  h1,
- .listaProductos-container  table th,
- .listaProductos-container  table td,
- .listaProductos-container  a {
+ .listaProductos-container  div table th,
+ .listaProductos-container  div table td,
+ .listaProductos-container  a.botonCrearProducto {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .listaProductos-container  h1,
-.listaProductos-container  table th,
+.listaProductos-container  div table th,
 .listaProductos-container  a {
     font-weight: bolder;
     text-transform: uppercase;
@@ -542,18 +543,25 @@ div.toggleOFF {
     letter-spacing: 5px;
     opacity: .9;
 }
-.listaProductos-container table{
-    width: 80%;
+.listaProductos-container div.tableContainer {
+    width: 85%;
+    height: 52%;
+    overflow: auto;
+    /* border: 1px solid red; */
+    border: 1px solid rgba(0, 0, 0, .65);
+} 
+.listaProductos-container div table{
+    width: 100%;
     border: 1px solid rgba(0, 0, 0, .65);
 }
-.listaProductos-container table td{
+.listaProductos-container div table td{
     text-align: center;
     border-top: 1px solid rgba(0, 0, 0, .35);
 }
-.listaProductos-container  a {
+.listaProductos-container  a.botonCrearProducto {
     position: absolute;
     left: 50%;
-    bottom:10%;
+    bottom:4%;
     width: 250px;
     height: 50px;
     border-radius: 15px;
@@ -566,10 +574,40 @@ div.toggleOFF {
     cursor: pointer;
     transition: all .2s ease-in;
 }
-.listaProductos-container  a:hover {
+.listaProductos-container  a.botonCrearProducto:hover {
     background-color: green;
     color: white;
 }
+.listaProductos-container div table tr td.acciones {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+.editarProducto , .eliminarProducto {
+    position: relative;
+    height: 25px;
+    width:40px;
+    background-size: 80% 80%;
+    background-position: center center;
+    background-repeat: no-repeat no-repeat;
+} 
+.editarProducto  {
+    background-image: url('../icons/edit.svg');
+    border : 1px solid  rgba(0,255, 0, 0);
+} 
+.eliminarProducto  {
+    background-image: url('../icons/delete.svg');
+    border : 1px solid rgba(255, 0, 0, 0);
+} 
+.editarProducto:hover  {
+    border : 1px solid green;
+    border-radius : 4px;
+} 
+.eliminarProducto:hover  {
+    border : 1px solid red;
+     border-radius : 4px;   
+} 
+
 /* MAIN CONTAINER
 REGISTRO PRODUCTOS - CONTAINER */
 .registroProductos-container {
@@ -627,7 +665,7 @@ REGISTRO PRODUCTOS - CONTAINER */
     border:1px solid rgba(0, 0, 0, .5);
 }
 .registroProductos-container form div textarea,
-.registroProductos-container form div select {
+.registroProductos-container form div select {  
     height: 35px;
     border:1px solid rgba(0, 0, 0, .5);
     border-radius: 10px;
@@ -646,10 +684,24 @@ REGISTRO PRODUCTOS - CONTAINER */
     color:green;
     cursor: pointer;
 }
+.registroProductos-container form div.imgContain{
+    position: relative;
+}
 .registroProductos-container form div:last-of-type input:hover {
     background-color: green;
     color:white;
 }
+.registroProductos-container form div img.img-tiny {
+    position: absolute;
+    top: 0;
+    right: -8%;
+    width: 14%;
+    border: 1px solid rgba(0, 0, 0, .4);
+    border-radius: 15px;
+    transform-origin: left bottom;
+    transform: scale(1.8)
+}
+    
 /* FOOTER */
 footer {
     position: relative;

@@ -44,7 +44,7 @@
             return $this->fecha;
         }
         public function getImagen() {
-            return $this->magen;
+            return $this->imagen;
         }
         
         //set-ers
@@ -73,7 +73,7 @@
             $this->fecha = $pFecha;
         }
         public function setImagen($pImagen) {
-            $this->magen = $pImagen;
+            $this->imagen = $pImagen;
         }
         //
         public function escapeString ($pString) {
@@ -88,16 +88,58 @@
             }
             return false;
         }
-
-        //
-        public function crearProducto() {
-            $sql = "INSERT INTO productos VALUES (null,{$this->getCategoriaId()},'{$this->getNombre()}','{$this->getDescripcion()}',{$this->getPrecio()},{$this->getStock()},null,CURDATE(),null)";
+        
+         //
+         public function getOne() {
+            $sql = "SELECT  * FROM productos WHERE id = {$this->getId()}";
             $query = $this->db->query($sql);
             $result = false;
-            if($query) {
-                $result = false;
+            if ($query) {
+                $result = $query->fetch_object();
             }
             return $result;
         } 
+
+        //
+        public function crearProducto() {
+            $sql = "INSERT INTO productos VALUES (null,{$this->getCategoriaId()},'{$this->getNombre()}','{$this->getDescripcion()}',{$this->getPrecio()},{$this->getStock()},null,CURDATE(),'{$this->getImagen()}')";
+            $query = $this->db->query($sql);
+            
+            $result = false;
+            if($query) {
+                $result = true;
+            }
+            return $result;
+        } 
+        //
+        public function modificarProducto() {
+            $sql = "UPDATE productos SET categoria_id = {$this->getCategoriaId()}, nombre = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}', precio = {$this->getPrecio()}, stock = {$this->getStock()}";
+            
+            if ($this->getImagen() != null) {
+                $sql .= ", imagen = '{$this->getImagen()}'";
+            }
+
+            $sql .= " WHERE id = {$this->getId()}"; 
+            $query = $this->db->query($sql);
+
+            
+            $result = false;
+            if($query) {
+                $result = true;
+            }
+            return $result;
+        } 
+        public function eliminarProducto() {
+            $sql = "DELETE FROM productos WHERE id = {$this->getId()}";
+
+            $query = $this->db->query($sql);
+
+            $result = false;
+            if($query) {
+                $result = true;
+            }
+            return $result;
+        } 
+       
 
     }
