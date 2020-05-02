@@ -45,14 +45,18 @@
                 <label for="imagen">Imagen</label>
                 <input type="file" name="imagen">
                 <?php if (isset($pro) && is_object($pro)) : ?>
-                    <img src="<?=BASE_URL?>/uploads/images/<?=$pro->imagen?>" alt="ing" class="img-tiny" >
+                    <img src="<?=BASE_URL?>/uploads/images/<?=$pro->imagen?>" class="img-tiny" alt="<?=$pro->imagen?>" title="<?=$pro->imagen?>">
                 <?php endif?>  
 
 
                 <span class="alerta-error" style="font-size:12px"><?=Utilidades::mostrarErrores('imagen')?></span>
             </div>
         <div>
-            <input type="submit" value="Crear">
+            <?php if(isset($pro) && is_object($pro)) : ?>
+                <input type="submit" value="Editar">
+            <?php elseif (!isset($pro)) : ?>
+                <input type="submit" value="Crear">
+            <?php endif?>
         </div>
     </form>
     <?php Utilidades::deleteSession('errores');?>

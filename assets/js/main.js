@@ -1,13 +1,61 @@
+//FUCNION PARA OBTENER EL PARAMETRO ID DE LA RUTA HTTP
+function getParametroId() {
+    //OBTENER LA RUTA HHTP
+    var rutaHttp = window.location.pathname  
+    //master-php/08%20-%20proyecto-php%20(POO%20MVC%20SQL)/producto/categoria&id=1
+
+    //OBTENER LA POSICION DONDE EMPIEZAN LOS PARAMETROS, COMO ALERTANIVA A LA PROPPIEDAD SEARCH DE widows location
+    var posicion =   rutaHttp.indexOf('&')
+    // posicion del concaetnador & -> 72
+
+    //OBTENER LOS VALORES DE GET DESPUES DEL PRIMER &
+    var parametrosGet = rutaHttp.substr(posicion+1)
+    //id=&nombre=luis
+
+    //CERAR UN ARRAY DE PARAMETROS QUE ESTES DEFINIDOS/SEPADADOS POR '&'
+    var arrayParametros = parametrosGet.split('&')
+    //  arrayParametros   ["id=1", "nombre=luis"]
+    //          arrayParametros[0]: "id=1"
+    //          arrayParametros[1]: "nombre=luis"
+
+    //CREAR ARRAY PARA OBTENER EL NOMBRE DEL PARAMETRO Y SU VALOR, LOS CUALES ESTAN SEPARADOS POR '='
+    var parametro1 = arrayParametros[0].split('=')
+    //  parametro1  ["id=1"]
+    //         parametro1[0]: "id"
+    //         parametro1[1]: "1"
+
+    // console.log(rutaHttp)
+    // console.log(posicion)
+    // console.log(parametrosGet)
+    // console.log(arrayParametros)
+    // console.log(parametro1)
+
+    var nombreParametro = parametro1[0]
+    var valorParametro = parametro1[1]
+
+    if (typeof(nombreParametro) == 'string' && nombreParametro == 'catId') {
+        selectCat(valorParametro)
+    } else if (typeof(valorParametro) == 'undefined') {
+        selectCat(0)
+    }
+} 
+//FUNCION PARA PONER ESTILOS A LA CATEGORIA CORRESPONIENTE AL ID QUE VIENE POR PARAMETRO HTTP
 function selectCat($pPosition){
    var  $lercc =document.getElementsByClassName('category')
-    // for(i=0;i<$lercc.length;i++) {
-    //     if($lercc[i].classList.contains('active')) {
-    //         $lercc[i].classList.remove('active')
-    //     }
-    // }
+    //BORRAR TODOS POS POSIBLES ACCTIVE
     for(i=0;i<$lercc.length;i++) if($lercc[i].classList.contains('active')) $lercc[i].classList.remove('active')
-    lercc[$pPosition].classList.add('active')
+    
+    //RECORRE EL ARRAY DE GETELEMENT
+    for (i=0;i<$lercc.length;i++) {
+        //SI ENCUENTRA QUE TIENE COMO CLASE EL VALOR QUE LE INDICAMOS COMO PARAMETRO,
+        //EN ESTE CASO EL ID DE LA CATEGORIA Y COMO ANTERIOMENTE DEFINIMOS UNA CLASE CON 
+        //EL ID DE CATEGORIA QUE LE CORRESPONE;ENTONCES SERA TRUE SI COINCIDEN
+        if($lercc[i].classList.contains($pPosition)) {
+            $lercc[i].classList.add('active')
+        }
+    }
 }
+
 function accountUserToggle(){
     var $lercc = document.getElementsByClassName('account-user-containt')
     var $lerc = document.getElementsByClassName('account-user')
@@ -28,7 +76,20 @@ function imgTransition() {
     countIgm+=1
     if(countIgm == $models.length) countIgm=0
 }
-setInterval("imgTransition()",5000)
+
+
+
+
+
+
+function autoload() {
+    getParametroId()
+    imgTransition();
+    setInterval("imgTransition()",6000)
+}
+//autoload
+autoload()
+
 
 
 
@@ -69,3 +130,4 @@ function prueba2() {
 }
 prueba2()
 console.log(minumero2)
+//ejemplo3

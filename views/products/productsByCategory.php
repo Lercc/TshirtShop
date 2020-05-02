@@ -13,7 +13,7 @@
         <?php endwhile;?> 
     <?php else: ?>
     <h3 class="titleContainter">No hay productos que mostrar</h3>
-    <?php endif ?>
+    <?php endif;?>
 </div>
 <!-- <div class="products-pagination">
     < 1   2   3   4   5   6   >

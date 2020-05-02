@@ -80,7 +80,7 @@
             return $this->db->real_escape_string($pString);
         }
 
-        //
+        //OBTENER TODOS LOS PRODUCTOS DE LA BD
         public function getAllProductos() {
             $products = $this->db->query("SELECT * FROM productos ORDER BY id DESC");
             if($products) {
@@ -88,8 +88,7 @@
             }
             return false;
         }
-        
-         //
+        //OBTENER SOLO UN PRODUCTO
          public function getOne() {
             $sql = "SELECT  * FROM productos WHERE id = {$this->getId()}";
             $query = $this->db->query($sql);
@@ -99,8 +98,7 @@
             }
             return $result;
         } 
-
-        //
+        //CREA UN PRODUCTO
         public function crearProducto() {
             $sql = "INSERT INTO productos VALUES (null,{$this->getCategoriaId()},'{$this->getNombre()}','{$this->getDescripcion()}',{$this->getPrecio()},{$this->getStock()},null,CURDATE(),'{$this->getImagen()}')";
             $query = $this->db->query($sql);
@@ -111,7 +109,7 @@
             }
             return $result;
         } 
-        //
+        //MODIFICA UN PRODUCTO
         public function modificarProducto() {
             $sql = "UPDATE productos SET categoria_id = {$this->getCategoriaId()}, nombre = '{$this->getNombre()}', descripcion = '{$this->getDescripcion()}', precio = {$this->getPrecio()}, stock = {$this->getStock()}";
             
@@ -129,6 +127,7 @@
             }
             return $result;
         } 
+        //ELIMINA O MODIFICA UN PRODUCTO
         public function eliminarProducto() {
             $sql = "DELETE FROM productos WHERE id = {$this->getId()}";
 
@@ -139,7 +138,23 @@
                 $result = true;
             }
             return $result;
-        } 
+        }
+        //OBTIENE LOS ULTIMOS PRODUCTOS AÑADIDOS
+        public function getLastProducts($pCantidad) {
+            $sql = "SELECT * FROM productos ORDER BY RAND() LIMIT $pCantidad";
+            $query = $this->db->query($sql);
+            return $query;
+        }
+        //OBTIENE TODOS LOS PRODUCTOS POR CATEGORIA QUE LE PASEMOS
+        public function getProductsByCategory ($pCatId) {
+            $sql = "SELECT * FROM productos WHERE categoria_id = $pCatId";
+            $query = $this->db->query($sql);
+            if($query && $query->num_rows != 0) {
+                return $query;
+            } else {
+                return false;
+            }
+        }
        
 
     }

@@ -110,7 +110,6 @@
                 // $_SESSION['login'] = false;
 
                 if (count($erroresLogin) == 0 ) {
-
                     $usuario = new Usuario();
                     $usuario->setEmail($usuario->escapeString($email));
                     $usuario->setPassword($password);
@@ -127,11 +126,9 @@
                         $_SESSION['erroresLogin']['login'] = "Error de login";
                     } 
                 }
-
             }
-            header('Location:'.BASE_URL.'/');
+            header('Location:'.BASE_URL);
         }
-
         //logout
         public function logout() {
            if(isset($_SESSION['identity'])) {

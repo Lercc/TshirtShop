@@ -5,6 +5,7 @@
     session_start();
     require_once './config/database.php';
     require_once './autoload.php';
+    
     require_once './config/parameters.php';
     require_once './helpers/utilidades.php';
 
@@ -78,4 +79,3 @@
     }
     //FOOTER
     require_once './views/layouts/footer.php';
-?>

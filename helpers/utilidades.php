@@ -24,20 +24,56 @@
             return $string;
         }
 
-        public static function isAdmin() {
+        public static function isAdmin () {
             if(!isset($_SESSION['admin'])) {
                 header('Location:'.BASE_URL);
             }
             return true;
         }
+        public static function isIdentity () {
+            if(!isset($_SESSION['identity'])) {
+                header('Location:'.BASE_URL);
+            }
+            return true;
+        }
 
-        public static function mostrarCategorias() {
+        public static function mostrarCategorias () {
             require_once './models/categoria.php';
             $categoria = new Categoria();
             $categorias = $categoria->listCategories();
             return $categorias;
         }
+        //DATOS DEL CARRITO
+        public static function datosCarrito() {
+            if(isset($_SESSION['carrito'])) {
+                $datos = [
+                    'cantidad' => 0,
+                    'precio' => 0
+                ];
 
+                foreach($_SESSION['carrito'] as $producto) {
+                    $datos['cantidad'] += $producto['unidades'];
+                    $datos['precio'] += $producto['unidades']*$producto['producto']->precio;
+                }
+                return $datos;
+            } else {
+                return false;
+            }
+        }
+        //ESTADOS
+        public static function orderStatus ($pState) {
+            $stateChanged = 'confirm';
+            if ($pState == 'confirm') {
+                $stateChanged = 'Pendiente';
+            } elseif ($pState == 'preparation') {
+                $stateChanged = 'En preparación';
+            } elseif ($pState == 'sended') {
+                $stateChanged = 'Enviado';
+            } elseif ($pState == 'received') {
+                $stateChanged = 'Finalizado';
+            }
+            return $stateChanged;
+        }
 
     }
 ?>

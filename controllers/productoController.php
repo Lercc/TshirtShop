@@ -5,11 +5,15 @@
         public function index(){
             echo 'controller:producto - action:mostrar';
         }
-
+        //MOSTRAR PRODUCTOS NUEVOS
         public function newArrivals() {
+            $cantidad = 6;
+            $producto = new Producto();
+            $productos = $producto->getLastProducts($cantidad);
             require_once './views/products/newArrivals.php';
-        }
 
+        }
+        // LISTA PAAR GESTIONAR TODOS LOS PRODUCTOS
         public function gestion () {
             Utilidades::isAdmin();
             $producto = new Producto();
@@ -21,11 +25,13 @@
             }
 
         }
+        //REGISTRO DE PRODUCTOS PARA EDITAR O CREAR 
         public function registro () {
             Utilidades::isAdmin();
             require_once './views/products/registroProductos.php';
 
         }
+        //CREACION DE NUEVO PRODUCTO
         public function crear () {
             Utilidades::isAdmin();
             if(isset($_POST)) {
@@ -33,7 +39,7 @@
                 $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : null ;
                 $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null ;
                 $precio = isset($_POST['precio']) ? $_POST['precio'] : null ;
-                $stock = isset($_POST['stock']) ? $_POST['stock'] : null ;
+                $stock = isset($_POST['stock']) ? $_POST['stock'] : null ;  
 
                 $errores =array();
                 //VALIDACION NOMBRE
@@ -120,8 +126,7 @@
             }
             header('Location:'.BASE_URL.'/producto/gestion');
         }
-
-        //editar
+        //REGISTRO PARA EDITAR VINCULADO O SIMILAR A REGISTRO
         public function registroEditar() {
             Utilidades::isAdmin();
             if (isset($_GET)) {
@@ -132,28 +137,58 @@
                 require_once './views/products/registroProductos.php';
             }
         }
+        //ELIMINAR REGISTRO
+        public function eliminar() {
+            if (isset($_GET)) {
+                $id = isset($_GET['id']) ? $_GET['id'] : null ;
+                $producto = new Producto();
+                $producto->setId($id);
+                $result = $producto->eliminarProducto();
+                
+                if ( $result ) {
+                    $_SESSION['eliminarProducto'] = true;
+                }else {
+                    $_SESSION['eliminarProducto'] = false;
+                }
 
-        //eliminar
-            public function eliminar() {
-                if (isset($_GET)) {
-                    $id = isset($_GET['id']) ? $_GET['id'] : null ;
+                header('Location:'.BASE_URL.'/producto/gestion');
+
+            } else {
+                header('Location:'.BASE_URL);
+            }
+
+        }
+        //PRODUCTOS POR CATEGORIA
+        public function categoria() {
+            if(isset($_GET)) {
+                $categoriaId = isset($_GET['catId']) ? $_GET['catId'] : null ;
+                $producto = new Producto();
+                $productos = $producto->getProductsByCategory($categoriaId);
+                if($productos == false) {
+                    header('Location:'.BASE_URL);
+                } else {
+                    require_once './views/products/productsByCategory.php';
+                }
+            } else {
+                header('Location:'.BASE_URL);
+            }
+        }
+        //MOSTRAR UN PRODUCTO DEFINIDO POR PARAMETRO GET
+        public function producto() {
+            if(isset($_GET)) {
+                $id = isset($_GET['id']) ? $_GET['id'] : null;
+                if($id!=null && is_numeric($id)) {
                     $producto = new Producto();
                     $producto->setId($id);
-                    $result = $producto->eliminarProducto();
-                    
-                    if ( $result ) {
-                        $_SESSION['eliminarProducto'] = true;
+                    $producto = $producto->getOne();
+                    if($producto) {
+                        require_once './views/products/product.php';
                     }else {
-                        $_SESSION['eliminarProducto'] = false;
+                        header('Location:'.BASE_URL);
                     }
-
-                    header('Location:'.BASE_URL.'/producto/gestion');
-
                 } else {
                     header('Location:'.BASE_URL);
                 }
-
             }
-
-
+        }
     }
