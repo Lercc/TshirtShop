@@ -36,15 +36,17 @@
                         $pedido->setCoste($coste);
         
                         // REGISTRAMOS PEDIDO EN LA BD
-                        $pedido->crearPedido();
+                        $resultado = $pedido->crearPedido();
 
                         //CREAMOS LA LISTA DE PRODUCTOS VINCULADOS AL PEDIDO CREADO
                         $listaProductos =  $pedido->crearPedidoProductos();
                         
-                        if ($listaProductos) {
+                        if ($resultado = 'complete' && $listaProductos == 'complete') {
                             unset($_SESSION['carrito']);
                             header('Location:'.BASE_URL.'/pedido/gestion');
-                        } 
+                        } elseif($resultado = 'stockAgotado' || $listaProductos == 'stockAgotado') {
+                            header('Location:'.BASE_URL.'/pedido/agotado');
+                        }
                         //AL FINAL ELIMINAR LOS PRODUCTOS COMPRADOS DEL CARRITO
                 } else {
                     $_SESSION['errores'] = $errores;
@@ -122,6 +124,11 @@
             }
 
 
+        }
+        //stock agotado
+        public function agotado (){
+            echo '<h1>Stock agotado<h1>';
+            echo '<h2>Intente otra vez<h2>';
         }
     }
 ?>

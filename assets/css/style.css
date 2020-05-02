@@ -704,6 +704,9 @@ REGISTRO PRODUCTOS - CONTAINER */
     text-transform: uppercase;
 }
  .registroProductos-container  h1 {
+     height: 10%;
+     overflow: hidden;
+     /* outline: red 1px solid; */  
     margin: 25px 0px; 
     text-align: center;
     letter-spacing: 5px;
@@ -792,10 +795,29 @@ PRODUCTO - CONTAINER */
     -1px -1px 12px rgba(0, 0, 0, 0.05);
 }
 .mostrarProducto-container .producto {
+    position: relative;
     display:flex;
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, .35);
+}
+.mostrarProducto-container .producto .stockProducto {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    height: 32px;
+    width: 180px;
+    font-size: 22px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 4px;
+    transform: translateX(-50%);
+    /* background-color: #fbb718;
+    background-color: rgb(246, 196, 29); */
+    background-color: #f5f5f5;
+    border-radius: 8px;
 }
 .mostrarProducto-container .detalles {
     position: relative;
@@ -805,7 +827,7 @@ PRODUCTO - CONTAINER */
     background-color: #f5f5f5;
 }
 .mostrarProducto-container .producto img {
-    height: 65%;;
+    height: 60%;
 }
 .mostrarProducto-container .detalles h1,
 .mostrarProducto-container .detalles a {
@@ -1368,13 +1390,21 @@ PRODUCTO - CONTAINER */
     letter-spacing: 2px;
     transition: all .3s ease-in-out;
 }
+.detallePedido-container .detallePedido-pedido form input[type="submit"]:disabled {
+    color: white;
+    border: 1px solid gray;
+    background-color: rgb(155, 154, 154);
+}
 .detallePedido-container .detallePedido-pedido form input[type="submit"]:hover {
     color: white;
     border: 1px solid rgb(23, 109, 23);
     background-color: rgb(80, 163, 80);
 }
-
-
+.detallePedido-container .detallePedido-pedido form input[type="submit"]:hover:disabled {
+    color: white;
+    border: 1px solid gray;
+    background-color: rgb(155, 154, 154);
+}
 /* DETALLES PEDIDO usuario*/
 .detallePedido-container .detallePedido-usuario {
     width: 30%;

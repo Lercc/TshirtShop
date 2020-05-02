@@ -149,7 +149,7 @@
         public function getProductsByCategory ($pCatId) {
             $sql = "SELECT * FROM productos WHERE categoria_id = $pCatId";
             $query = $this->db->query($sql);
-            if($query && $query->num_rows != 0) {
+            if($query && $query->num_rows >= 0) {
                 return $query;
             } else {
                 return false;

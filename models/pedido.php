@@ -115,30 +115,62 @@
         }   
         //
         public function crearPedido() {
-            $sql = "INSERT INTO pedidos VALUES (null, {$this->getUsuarioId()}, '{$this->getProvincia()}', '{$this->getLocalidad()}', '{$this->getDireccion()}', {$this->getCoste()}, 'confirm', CURDATE(), CURTIME())";
-            $query = $this->db->query($sql);
-            if($query) {
-                return true;
+            $stockAgotado = 0;
+            foreach ( $_SESSION['carrito'] as $producto) {
+                $unidades = $producto['unidades'];
+                $stockRestante = ($producto['producto']->stock)-$unidades;
+                if($stockRestante<0 ) {
+                    $stockAgotado++;
+                }
+            }
+            if( $stockAgotado == 0 ){
+                $sql = "INSERT INTO pedidos VALUES (null, {$this->getUsuarioId()}, '{$this->getProvincia()}', '{$this->getLocalidad()}', '{$this->getDireccion()}', {$this->getCoste()}, 'confirm', CURDATE(), CURTIME())";
+                $query = $this->db->query($sql);
+                if($query) {
+                    return 'complete';
+                } else {
+                    return 'failed';
+                }
             } else {
-                return false;
+                return 'stockAgotado';
             }
         }
         //
         public function crearPedidoProductos() {
             // return $this->db->insert_id;  //raras veces falla, pero pasa
-            $id = $this->db->query("SELECT LAST_INSERT_ID() as id");
-            $pedido_id = $id->fetch_object()->id;
+            //VERIFICANDO QUE NO SUPERE EL STOCK
+            $stockAgotado = 0;
             foreach ( $_SESSION['carrito'] as $producto) {
-                $producrto_id = $producto['productoId'];
                 $unidades = $producto['unidades'];
-
-                $sql = "INSERT INTO pedido_productos VALUES (null, $pedido_id, $producrto_id, $unidades)";
-                $query = $this->db->query($sql);
+                $stockRestante = ($producto['producto']->stock)-$unidades;
+                if($stockRestante<0 ) {
+                    $stockAgotado++;
+                }
             }
-            if($query) {
-                return true;
+            if( $stockAgotado == 0 ){
+                $id = $this->db->query("SELECT LAST_INSERT_ID() as id");
+                $pedido_id = $id->fetch_object()->id;
+    
+                foreach ( $_SESSION['carrito'] as $producto) {
+                    $producrto_id = $producto['productoId'];
+                    $unidades = $producto['unidades'];
+                    $stockRestante = ($producto['producto']->stock)-$unidades;
+
+                    //actualizando el stock de la bd
+                    $sql2 = "UPDATE productos SET stock = $stockRestante WHERE id = $producrto_id";
+                    $query2 = $this->db->query($sql2);
+
+                    //insetando productos pedido
+                    $sql = "INSERT INTO pedido_productos VALUES (null, $pedido_id, $producrto_id, $unidades)";
+                    $query = $this->db->query($sql);
+                }
+                if($query) {
+                    return 'complete';
+                } else {
+                    return 'failed';
+                }
             } else {
-                return false;
+                return 'stockAgotado';
             }
         }
         //

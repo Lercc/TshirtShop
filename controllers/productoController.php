@@ -29,7 +29,6 @@
         public function registro () {
             Utilidades::isAdmin();
             require_once './views/products/registroProductos.php';
-
         }
         //CREACION DE NUEVO PRODUCTO
         public function crear () {
@@ -88,8 +87,6 @@
                     } else {
                         $erroes['imagen'] = 'Formato de imagen no válido';
                     }
-                    
-                    
                 }
                 
                 if (count($errores) == 0) {
