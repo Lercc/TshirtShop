@@ -9,7 +9,7 @@
         //AGREGA UN PRODUCTO A EL CARRITO
         public function agregar() {
             if(isset($_GET)) {
-                $productoID = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : null ;
+                $productoID = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : false ;
 
                 if(isset($_SESSION['carrito']) && $productoID != null) {
 
@@ -23,23 +23,19 @@
                         }
                     }
                 }
-                if($productoID == null) {
-                    header('Location:'.BASE_URL);
-                } else {
-                    if (!isset($productoRepetido) || $productoRepetido == 0) {
-                        $producto = new Producto();
-                        $producto->setId($productoID);
-                        $producto = $producto->getOne();
-                        
-                        if (is_object($producto)){
-                            $_SESSION['carrito'][]= array (
-                                'productoId' => $producto->id,
-                                'unidades'   => 1,
-                                'producto' => $producto
-                            );
-                        } else {
-                            header('Location:'.BASE_URL);
-                        }
+                if (!isset($productoRepetido) || $productoRepetido == 0 && $productoID != false) {
+                    $producto = new Producto();
+                    $producto->setId($productoID);
+                    $producto = $producto->getOne();
+                    
+                    if (is_object($producto)){
+                        $_SESSION['carrito'][]= array (
+                            'productoId' => $producto->id,
+                            'unidades'   => 1,
+                            'producto' => $producto
+                        );
+                    } else {
+                        header('Location:'.BASE_URL);
                     }
                 }
                 header('Location:'.BASE_URL.'/carrito/index');

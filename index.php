@@ -2,36 +2,21 @@
     ////////////////////////////////////////////////////
     /////////////// CONTROLLADOR FRONTAL /////////////// 
     ////////////////////////////////////////////////////
-    session_start();
+    if(!isset($_SESSION)) {
+        session_start();
+    }
     require_once './config/database.php';
     require_once './autoload.php';
     
     require_once './config/parameters.php';
     require_once './helpers/utilidades.php';
 
-    //HEADER
+    // HEADER
     require_once './views/layouts/header.php';
-    //MENU
+    // MENU
     require_once './views/layouts/menu-home.php';
-    //ASIDE
-    require_once './views/layouts/aside-home.php';
-    // if(isset($_SESSION['identity'])) {
-    //     echo 'vardum 1 :';
-    //     var_dump($_SESSION['identity']);
-    // }
-    // if(isset($_SESSION['errores'])) {
-    //     echo 'vardum 2 :';
-    //     var_dump($_SESSION['errores']);
-    // }
-    // if(isset($_SESSION['admin'])) {
-    //     echo 'vardum 3 :';
-    //     var_dump($_SESSION['admin']);
-    // }
-    // if(isset($_SESSION['erroresLogin'])) {
-    //     echo 'vardum 4 : ';
-    //     var_dump($_SESSION['erroresLogin']);
-    // }
-    //MAIN-CONTINER
+    // ASIDE
+    require_once './views/layouts/aside-Home.php';
     function showError($pValor){
         $error = new errorController();
         $error->index($pValor);

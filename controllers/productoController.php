@@ -44,7 +44,7 @@
                 //VALIDACION NOMBRE
                 if(!empty($nombre) && !is_numeric($nombre)) {
                     for ($i=0;$i<strlen($nombre);$i++) {
-                        if(!preg_match('/[a-zA-ZáéíóúÁÉÍÓÚnÑ ]+/',$nombre[$i])) {
+                        if(!preg_match('/[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+/',$nombre[$i])) {
                             $errores['nombre'] = 'Carácteres no válidos';
                         break;
                         }
